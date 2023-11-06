@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <!-- openstreetmap -->
+    <link rel="stylesheet" href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
+    <link rel="stylesheet" href="attraction.css">
+    <title>旅遊景點查詢</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="" class="nav_atag">icon</a>
+
+        <ul class="nav_links">
+            <li><a href="/" class="nav_atag">首頁</a></li>
+            <li><a href="./pages/food.html" class="nav_atag">美食</a></li>
+            <li><a href="./pages/accommodation.html" class="nav_atag">住宿</a></li>
+            <li><a href="./pages/attraction.html" class="nav_atag">景點</a></li>
+        </ul>
+    </nav>
+
+    <main class="main">
+      <div class="city-select">
+        <h2>選擇城市：</h2>
+        <div class="container-select">
+            <select id="citySelect">
+                <option value="">--選擇城市--</option>
+                <option value="Taipei">台北市</option>
+                <option value="NewTaipei">新北市</option>
+                <option value="Taoyuan">桃園市</option>
+                <option value="Taichung">台中市</option>
+                <option value="Tainan">台南市</option>
+                <option value="Kaohsiung">高雄市</option>
+            </select>
+            <button onclick="searchAttractions()">搜尋</button>
+            <button onclick="searchAttractionsClear()">清除</button>
+        </div>
+
+        <h2>搜尋結果：</h2>
+        <table id="attractions" class="attractions">
+            <tr>
+                <th class="attraction">景點名稱</th>
+                <th class="open-time">開放時間</th>
+                <th class="address">地址</th>
+            </tr>
+        </table>
+
+        <!-- 分頁按鈕 -->
+        <div class="container-pagechange">
+            <button onclick="changePage(-1)">上一页</button>
+            <button onclick="changePage(1)">下一页</button>
+        </div>
+      </div>
+
+      <div class="city-input">
+        <h2>輸入景點名稱：</h2>
+        <div class="container-input">
+            <input type="text" id="spotName" placeholder="輸入景點名稱">
+            
+            <button onclick="showOnMap()">搜尋</button>
+            <button onclick="showOnMapClear()">清除</button>
+        </div>
+
+        <h2>搜尋結果：</h2>
+        <table id="attractionShowOnMap" class="attractions">
+            <tr>
+                <th class="attraction">景點名稱</th>
+                <th class="open-time">開放時間</th>
+                <th class="address">地址</th>
+            </tr>
+        </table>
+
+        <h2>Current Position</h2>
+        <div id="mapid" style="height: 400px;"></div>   
+      </div>
+    </main>
+    
+    <footer class="footer">
+        <div id="copyright"></div>
+    </footer>
+
+
+    <!-- leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- openstreetmap -->
+    <script src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
+    <script src="attraction.js"></script>
+</body>
+</html>
