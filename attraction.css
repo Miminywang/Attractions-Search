@@ -62,15 +62,32 @@ table {
     align-items: space-between;
 }
 
+.navbar li {
+    margin: 1em;
+}
+
 .navbar .nav_atag {
     text-decoration: none;
     color: black;
     margin: 5px;
+    position: relative;
+}
+
+.navbar .underline::after {
+    content: ''; 
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 3em;
+    height: 0.2em;
+    background-color: green;
 }
 
 .navbar .nav_atag:hover {
     background-color: beige;
 }
+
+
 
 /* main */
 
@@ -93,6 +110,14 @@ table {
 .container-select button,
 .container-pagechange button {
     flex: 1;
+}
+
+.main select:focus {
+    background-color: whitesmoke;
+}
+
+.main input:focus{
+    background-color: whitesmoke;
 }
 
 .attractions {
