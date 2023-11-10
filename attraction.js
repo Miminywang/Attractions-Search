@@ -1,3 +1,15 @@
+// 清除所有景點的內容
+function searchAttractionsClear() {
+    const table = document.getElementById("attractions");
+    table.innerHTML = `
+        <tr>
+            <th>景點名稱</th>
+            <th>開放時間</th>
+            <th>地址</th>
+        </tr>
+    `
+}
+
 //分頁邏輯
 let currentPage = 1;
 function changePage(offset) {
@@ -29,7 +41,7 @@ function searchAttractions() {
                 return attraction.ScenicSpotName.includes(spotName);
             });
 
-            // 分页逻辑
+            // 分頁邏輯
             const itemsPerPage = 3;
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
@@ -49,8 +61,8 @@ function searchAttractions() {
             pageAttractions.forEach(attraction => {
                 table.innerHTML += `
                     <tr>
-                        <td class="attraction-name">${attraction.ScenicSpotName}</td>
-                        <td class="attraction-time">${attraction.OpenTime}</td>
+                        <td>${attraction.ScenicSpotName}</td>
+                        <td>${attraction.OpenTime}</td>
                         <td class="attraction-address">${attraction.Address}</td>
                     </tr>
                 `;
@@ -58,26 +70,40 @@ function searchAttractions() {
         })
         .catch(error => {
             console.error('Error:', error);
+            alert("no info")
         });
 }
 
-// 清除所有景點的內容
-function searchAttractionsClear() {
-    const table = document.getElementById("attractions");
-    table.innerHTML = `
-        <tr>
-            <th>景點名稱</th>
-            <th>開放時間</th>
-            <th>地址</th>
-        </tr>
-    `
+// 初始化地圖
+function initMap(latitude, longitude, name) {
+    const map = L.map('mapid').setView([latitude, longitude], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    }).addTo(map);
+
+    L.marker([latitude, longitude]).addTo(map)
+        .bindPopup(name)
+        .openPopup();
 }
 
-// 輸入景點名稱
+// default地圖
+// function showDefaultMap() {
+//     const defaultLatitude = 25.033;
+//     const defaultLongitude = 121.565;
+//     const defaultName = "台北";
+//     initMap(defaultLatitude, defaultLongitude, defaultName);
+// }
+
+// 文檔加載後顯示默認地圖
+// document.addEventListener("DOMContentLoaded", function() {
+//     showDefaultMap();
+// });
+
+// 輸入景點名稱並顯示地圖
 function showOnMap() {
     const city = document.getElementById("citySelect").value;
     const spotName = document.getElementById("spotName").value;
-    const apiUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot/${city}?%24top=10&%24format=JSON`;
+    const apiUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot/${city}?%24top=100&%24format=JSON`;
 
     fetch(apiUrl)
         .then(response => {
@@ -109,16 +135,24 @@ function showOnMap() {
                         <td>${attraction.Address}</td>
                     </tr>
                 `;
+
                 initMap(attraction.Position.PositionLat, attraction.Position.PositionLon, attraction.ScenicSpotName);
             });
         })
         .catch(error => {
             console.error('Error:', error);
+            alter("no info")
         });
 }
 
 
 function showOnMapClear() {
+    //清除input的輸入
+    const inputElement = document.getElementById("spotName");
+    if(inputElement) {
+        inputElement.value ='';
+    }
+
     //清除特定景點的內容
     const table = document.getElementById("attractionShowOnMap");
     table.innerHTML = `
@@ -135,27 +169,6 @@ function showOnMapClear() {
     }
 }
 
-
-
-// 初始化地圖
-function initMap(latitude, longitude, name) {
-    const map = L.map('mapid').setView([latitude, longitude], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-    }).addTo(map);
-
-    L.marker([latitude, longitude]).addTo(map)
-        .bindPopup(name)
-        .openPopup();
-}
-
-// default地圖
-// document.addEventListener("DOMContentLoaded", function() {
-//     const defaultLatitude = 25.033;
-//     const defaultLongitude = 121.565;
-//     const defaultName = "default";
-//     initMap(defaultLatitude, defaultLongitude, defaultName); 
-// })
 
 
 // footer
