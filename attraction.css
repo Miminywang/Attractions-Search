@@ -43,6 +43,7 @@ q:before, q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -55,25 +56,40 @@ table {
     align-items: center;
     background-color: pink;
     padding: 2rem;
+
+    position: sticky;
+    top: 0;
 }
 
-.navbar ul {
+.navbar .topnav { 
     display: flex;
-    align-items: space-between;
+    justify-content: start;
+    align-items: center;
 }
 
-.navbar li {
-    margin: 1em;
-}
-
-.navbar .nav_atag {
+.navbar .atag {
     text-decoration: none;
     color: black;
-    margin: 5px;
+    margin: 20px;
     position: relative;
 }
 
-.navbar .underline::after {
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar .atag:hover::after {
+    content: ''; 
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 3em;
+    height: 0.2em;
+    background-color: green;
+}
+  
+.navbar .active::after {
     content: ''; 
     position: absolute;
     left: 0;
@@ -83,72 +99,78 @@ table {
     background-color: green;
 }
 
-.navbar .nav_atag:hover {
-    background-color: beige;
-}
-
-
-
 /* main */
 
+/* 選擇城市 */
 .city-select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5rem;
+    margin: 3rem;
+    padding: 3em;
     gap: 20px;
     background-color: beige;
 }
 
-.container-select,
-.container-pagechange {
-    display: flex;
-    gap: 10px;
+.main select {
+    margin: 10px;
+    width: 20em;
+    height: 3em;
+    padding: 8px;
+    border-radius: 5px;
 }
 
-.container-select select,
-.container-select button,
-.container-pagechange button {
-    flex: 1;
+.main button {
+    margin: 2px;
+    width: 5em;
+    height: 3em;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0.5px solid black;
 }
 
 .main select:focus {
     background-color: whitesmoke;
 }
 
-.main input:focus{
-    background-color: whitesmoke;
-}
-
-.attractions {
-    border-collapse: separate; 
-    border-spacing: 0 20px;
+/* 選擇城市-搜尋結果 */
+.main table {
+    border-collapse: separate;
+    border-spacing: 2em;
+    height: 10em;
 }
 
 .attractions th {
     width: 300px;
 }
 
-
 /* 輸入景點名稱 */
 .city-input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 5rem;
+    margin: 3rem;
+    padding: 3em;
     gap: 20px;
-    background-color:blanchedalmond;
+    background-color: blanchedalmond;
 }
 
-.container-input {
-    display: flex;
-    gap: 10px;
+.main input {
+    margin: 10px;
+    width: 20em;
+    height: 2em;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
 }
 
-.container-input input,
-.container-input button {
-    flex: 1;
+.main input:focus{
+    background-color: whitesmoke;
 }
+
+
+
 
 /* map */
 #mapid { 
